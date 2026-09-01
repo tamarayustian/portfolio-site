@@ -20,6 +20,7 @@ uniform vec2  u_resolution;
 uniform float u_time;
 uniform float u_grain;
 uniform vec3  u_colors[3];
+uniform vec3  u_base;
 
 vec3 mod289(vec3 x) { return x - floor(x * (1.0 / 289.0)) * 289.0; }
 vec2 mod289(vec2 x) { return x - floor(x * (1.0 / 289.0)) * 289.0; }
@@ -58,7 +59,7 @@ void main() {
 
   float light = pow(abs(n2), 2.5) * 0.5;
 
-  vec3 col = vec3(0.02, 0.01, 0.01);
+  vec3 col = u_base;
 
   col += u_colors[0] * smoothstep(0.1, 1.0, n1) * 0.5;
   col += u_colors[1] * light;
@@ -78,16 +79,19 @@ export interface AuralisProps {
   speed?: number;
   grain?: number;
   height?: string;
+  theme?: "light" | "dark";
   className?: string;
 }
 
-const DEFAULT_COLORS = ["#3b82f6", "#2563eb", "#1d4ed8"];
+const DARK_COLORS = ["#1d4ed8", "#2563eb", "#3b82f6"];
+const LIGHT_COLORS = ["#bfdbfe", "#93c5fd", "#60a5fa"];
 
 const Auralis = ({
-  colors = DEFAULT_COLORS,
+  colors,
   speed = 0.3,
   grain = 0.6,
   height = "100vh",
+  theme = "dark",
   className,
 }: AuralisProps) => {
   const canvasRef = useRef<HTMLCanvasElement | null>(null);
@@ -101,6 +105,8 @@ const Auralis = ({
       parseInt(h.slice(4, 6), 16) / 255,
     ];
   };
+
+  const activeColors = colors ?? (theme === "dark" ? DARK_COLORS : LIGHT_COLORS);
 
   useEffect(() => {
     const canvas = canvasRef.current;
@@ -143,6 +149,7 @@ const Auralis = ({
       time: gl.getUniformLocation(program, "u_time"),
       grain: gl.getUniformLocation(program, "u_grain"),
       colors: gl.getUniformLocation(program, "u_colors"),
+      base: gl.getUniformLocation(program, "u_base"),
     };
 
     const resize = () => {
@@ -156,13 +163,15 @@ const Auralis = ({
     ro.observe(container);
 
     let raf: number;
+    const base = theme === "dark" ? [0.02, 0.01, 0.01] : [0.97, 0.97, 0.94];
     const render = (t: number) => {
       gl.uniform2f(locs.res, canvas.width, canvas.height);
       gl.uniform1f(locs.time, t * 0.001 * speed);
       gl.uniform1f(locs.grain, grain);
 
-      const flat = new Float32Array(colors.slice(0, 3).flatMap(hexToRgb));
+      const flat = new Float32Array(activeColors.slice(0, 3).flatMap(hexToRgb));
       gl.uniform3fv(locs.colors, flat);
+      gl.uniform3fv(locs.base, new Float32Array(base));
 
       gl.drawArrays(gl.TRIANGLE_STRIP, 0, 4);
       raf = requestAnimationFrame(render);
@@ -174,13 +183,17 @@ const Auralis = ({
       cancelAnimationFrame(raf);
       gl.deleteProgram(program);
     };
-  }, [colors, speed, grain]);
+  }, [activeColors, speed, grain, theme]);
 
   return (
     <div
       ref={containerRef}
       style={{ height }}
-      className={cn("relative w-full overflow-hidden bg-[#010103]", className)}
+      className={cn(
+        "relative w-full overflow-hidden",
+        theme === "dark" ? "bg-[#010103]" : "bg-[#f7f6f0]",
+        className,
+      )}
     >
       <canvas
         ref={canvasRef}

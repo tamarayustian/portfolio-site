@@ -1,6 +1,8 @@
 import { ArrowRight } from 'lucide-react'
 import { motion, useReducedMotion } from 'motion/react'
+import { cn } from '@/lib/utils'
 import Auralis from '@/components/ui/auralis'
+import { useTheme } from '@/hooks/use-theme'
 
 const container = {
   hidden: {},
@@ -11,6 +13,7 @@ const container = {
 
 export function Hero() {
   const reduce = useReducedMotion()
+  const { dark } = useTheme()
 
   const item = {
     hidden: reduce ? {} : { opacity: 0, y: 20 },
@@ -30,6 +33,7 @@ export function Hero() {
         height="100dvh"
         speed={0.2}
         grain={0.5}
+        theme={dark ? 'dark' : 'light'}
         className="absolute inset-0"
       />
       <div className="relative z-10 mx-auto w-full max-w-6xl px-4 md:px-8">
@@ -40,20 +44,35 @@ export function Hero() {
             animate="show"
             className="space-y-8"
           >
-            <motion.p variants={item} className="text-sm font-medium text-accent">
+            <motion.p
+              variants={item}
+              className={
+                dark
+                  ? 'text-sm font-medium text-accent'
+                  : 'text-sm font-medium text-blue-600'
+              }
+            >
               Software developer and storyteller
             </motion.p>
 
             <motion.h1
               variants={item}
-              className="text-4xl font-semibold leading-[1.05] tracking-tighter md:text-5xl lg:text-6xl text-white"
+              className={cn(
+                'text-4xl font-semibold leading-[1.05] tracking-tighter md:text-5xl lg:text-6xl',
+                dark ? 'text-white' : 'text-zinc-900',
+              )}
             >
               I build products that feel simple, because clear always wins.
             </motion.h1>
 
             <motion.p
               variants={item}
-              className="max-w-[65ch] text-base leading-relaxed text-white/70 md:text-lg"
+              className={cn(
+                'max-w-[65ch] text-base leading-relaxed md:text-lg',
+                dark
+                  ? 'text-white/70'
+                  : 'text-zinc-600',
+              )}
             >
               I am a software developer who cares about the story a product
               tells. When the workflow reads clearly, the product becomes easier
@@ -64,7 +83,12 @@ export function Hero() {
             <motion.div variants={item} className="flex flex-wrap items-center gap-4">
               <a
                 href="#work"
-                className="group inline-flex items-center gap-2 rounded-full bg-white px-6 py-3 text-sm font-medium text-zinc-900 transition-opacity hover:opacity-90 active:scale-[0.98]"
+                className={cn(
+                  'group inline-flex items-center gap-2 rounded-full px-6 py-3 text-sm font-medium transition-opacity hover:opacity-90 active:scale-[0.98]',
+                  dark
+                    ? 'bg-white text-zinc-900'
+                    : 'bg-zinc-900 text-white',
+                )}
               >
                 View my work
                 <ArrowRight
@@ -74,7 +98,12 @@ export function Hero() {
               </a>
               <a
                 href="#contact"
-                className="inline-flex items-center gap-2 rounded-full border border-white/20 px-6 py-3 text-sm font-medium text-white transition-colors hover:bg-white/10 active:scale-[0.98]"
+                className={cn(
+                  'inline-flex items-center gap-2 rounded-full border px-6 py-3 text-sm font-medium transition-colors active:scale-[0.98]',
+                  dark
+                    ? 'border-white/20 text-white hover:bg-white/10'
+                    : 'border-zinc-300 text-zinc-900 hover:bg-zinc-100',
+                )}
               >
                 Get in touch
               </a>
