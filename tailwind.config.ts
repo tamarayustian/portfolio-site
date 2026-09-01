@@ -15,13 +15,10 @@ export default {
     },
     extend: {
       fontFamily: {
-        display: ['Playfair Display', 'serif'],
-        body: ['Quicksand', 'sans-serif'],
+        sans: ['Geist Variable', 'ui-sans-serif', 'system-ui', 'sans-serif'],
+        mono: ['Geist Mono Variable', 'ui-monospace', 'monospace'],
       },
       colors: {
-        'rose-soft': 'hsl(var(--rose-soft))',
-        cream: 'hsl(var(--cream))',
-        'warm-white': 'hsl(var(--warm-white))',
         border: 'hsl(var(--border))',
         input: 'hsl(var(--input))',
         ring: 'hsl(var(--ring))',
