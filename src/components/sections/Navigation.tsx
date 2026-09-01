@@ -1,5 +1,5 @@
 import { cn } from '@/lib/utils';
-import { Menu, X } from 'lucide-react';
+import { Menu, Moon, Sun, X } from 'lucide-react';
 import { useEffect, useState } from 'react';
 
 const links = [
@@ -12,6 +12,17 @@ const links = [
 export function Navigation() {
   const [open, setOpen] = useState(false);
   const [scrolled, setScrolled] = useState(false);
+  const [dark, setDark] = useState(() => {
+    if (typeof window === 'undefined') return false;
+    const stored = localStorage.getItem('theme');
+    if (stored) return stored === 'dark';
+    return window.matchMedia('(prefers-color-scheme: dark)').matches;
+  });
+
+  useEffect(() => {
+    document.documentElement.classList.toggle('dark', dark);
+    localStorage.setItem('theme', dark ? 'dark' : 'light');
+  }, [dark]);
 
   useEffect(() => {
     const onScroll = () => setScrolled(window.scrollY > 12);
@@ -19,6 +30,10 @@ export function Navigation() {
     window.addEventListener('scroll', onScroll, { passive: true });
     return () => window.removeEventListener('scroll', onScroll);
   }, []);
+
+  const toggleTheme = () => {
+    setDark((v) => !v);
+  };
 
   return (
     <header className="fixed inset-x-0 top-0 z-50 px-4 pt-4">
@@ -34,14 +49,32 @@ export function Navigation() {
                 {link.label}
               </a>
             ))}
+            <button
+              type="button"
+              aria-label={dark ? 'Switch to light mode' : 'Switch to dark mode'}
+              onClick={toggleTheme}
+              className="inline-flex items-center justify-center rounded-full border border-border p-2 text-muted-foreground transition-colors hover:bg-secondary hover:text-foreground"
+            >
+              {dark ? <Sun size={18} /> : <Moon size={18} />}
+            </button>
             <a href="#contact" className="rounded-full bg-accent px-4 py-1.5 text-sm font-medium text-accent-foreground transition-opacity hover:opacity-90">
               Get in touch
             </a>
           </div>
 
-          <button type="button" aria-label="Toggle menu" aria-expanded={open} onClick={() => setOpen((v) => !v)} className="inline-flex items-center justify-center rounded-full p-2 text-foreground transition-colors hover:bg-secondary md:hidden">
-            {open ? <X size={22} /> : <Menu size={22} />}
-          </button>
+          <div className="flex items-center gap-2 md:hidden">
+            <button
+              type="button"
+              aria-label={dark ? 'Switch to light mode' : 'Switch to dark mode'}
+              onClick={toggleTheme}
+              className="inline-flex items-center justify-center rounded-full border border-border p-2 text-muted-foreground transition-colors hover:bg-secondary hover:text-foreground"
+            >
+              {dark ? <Sun size={20} /> : <Moon size={20} />}
+            </button>
+            <button type="button" aria-label="Toggle menu" aria-expanded={open} onClick={() => setOpen((v) => !v)} className="inline-flex items-center justify-center rounded-full p-2 text-foreground transition-colors hover:bg-secondary">
+              {open ? <X size={22} /> : <Menu size={22} />}
+            </button>
+          </div>
         </nav>
 
         {open && (
