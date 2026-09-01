@@ -1,7 +1,7 @@
-"use client";
+'use client';
 
-import { useEffect, useRef } from "react";
-import { cn } from "@/lib/utils";
+import { cn } from '@/lib/utils';
+import { useEffect, useRef } from 'react';
 
 const vertexShaderGLSL = `
 attribute vec2 position;
@@ -19,6 +19,9 @@ varying vec2 vUv;
 uniform vec2  u_resolution;
 uniform float u_time;
 uniform float u_grain;
+uniform float u_vignette;
+uniform float u_strength;
+uniform float u_legacy;
 uniform vec3  u_colors[3];
 uniform vec3  u_base;
 
@@ -57,18 +60,25 @@ void main() {
   float n1 = snoise(p * 0.5 + t);
   float n2 = snoise(p * 0.9 - t * 0.5 + n1);
 
-  float light = pow(abs(n2), 2.5) * 0.5;
-
-  vec3 col = u_base;
-
-  col += u_colors[0] * smoothstep(0.1, 1.0, n1) * 0.5;
-  col += u_colors[1] * light;
+  vec3 col;
+  if (u_legacy > 0.5) {
+    float light = pow(abs(n2), 2.5) * 0.5;
+    col = u_base;
+    col += u_colors[0] * smoothstep(0.1, 1.0, n1) * 0.5;
+    col += u_colors[1] * light;
+  } else {
+    float field = smoothstep(0.05, 1.0, n1);
+    float glow = smoothstep(0.3, 1.0, abs(n2));
+    col = mix(u_base, u_colors[0], field * u_strength);
+    col += u_colors[1] * glow * 0.7;
+  }
 
   float grain = fract(sin(dot(uv, vec2(12.9898, 78.233))) * 43758.5453 + u_time);
   col += (grain - 0.5) * u_grain * 0.5;
 
   float dist = length(uv - 0.5);
-  col *= smoothstep(1.2, 0.2, dist);
+  vec3 vignette = smoothstep(1.2, 0.2, dist) * col;
+  col = mix(col, vignette, u_vignette);
 
   gl_FragColor = vec4(col, 1.0);
 }
@@ -79,41 +89,30 @@ export interface AuralisProps {
   speed?: number;
   grain?: number;
   height?: string;
-  theme?: "light" | "dark";
+  theme?: 'light' | 'dark';
   className?: string;
 }
 
-const DARK_COLORS = ["#1d4ed8", "#2563eb", "#3b82f6"];
-const LIGHT_COLORS = ["#bfdbfe", "#93c5fd", "#60a5fa"];
+const DARK_COLORS = ['#1d4ed8', '#2563eb', '#3b82f6'];
+const LIGHT_COLORS = ['#2563eb', '#3b82f6', '#60a5fa'];
 
-const Auralis = ({
-  colors,
-  speed = 0.3,
-  grain = 0.6,
-  height = "100vh",
-  theme = "dark",
-  className,
-}: AuralisProps) => {
+const Auralis = ({ colors, speed = 0.3, grain = 0.6, height = '100vh', theme = 'dark', className }: AuralisProps) => {
   const canvasRef = useRef<HTMLCanvasElement | null>(null);
   const containerRef = useRef<HTMLDivElement | null>(null);
 
   const hexToRgb = (hex: string): [number, number, number] => {
-    const h = hex.replace("#", "");
-    return [
-      parseInt(h.slice(0, 2), 16) / 255,
-      parseInt(h.slice(2, 4), 16) / 255,
-      parseInt(h.slice(4, 6), 16) / 255,
-    ];
+    const h = hex.replace('#', '');
+    return [parseInt(h.slice(0, 2), 16) / 255, parseInt(h.slice(2, 4), 16) / 255, parseInt(h.slice(4, 6), 16) / 255];
   };
 
-  const activeColors = colors ?? (theme === "dark" ? DARK_COLORS : LIGHT_COLORS);
+  const activeColors = colors ?? (theme === 'dark' ? DARK_COLORS : LIGHT_COLORS);
 
   useEffect(() => {
     const canvas = canvasRef.current;
     const container = containerRef.current;
     if (!canvas || !container) return;
 
-    const gl = canvas.getContext("webgl", { antialias: true });
+    const gl = canvas.getContext('webgl', { antialias: true });
     if (!gl) return;
 
     const createShader = (type: number, src: string) => {
@@ -125,31 +124,27 @@ const Auralis = ({
 
     const program = gl.createProgram()!;
     gl.attachShader(program, createShader(gl.VERTEX_SHADER, vertexShaderGLSL));
-    gl.attachShader(
-      program,
-      createShader(gl.FRAGMENT_SHADER, fragmentShaderGLSL),
-    );
+    gl.attachShader(program, createShader(gl.FRAGMENT_SHADER, fragmentShaderGLSL));
     gl.linkProgram(program);
     gl.useProgram(program);
 
     const buffer = gl.createBuffer();
     gl.bindBuffer(gl.ARRAY_BUFFER, buffer);
-    gl.bufferData(
-      gl.ARRAY_BUFFER,
-      new Float32Array([-1, -1, 1, -1, -1, 1, 1, 1]),
-      gl.STATIC_DRAW,
-    );
+    gl.bufferData(gl.ARRAY_BUFFER, new Float32Array([-1, -1, 1, -1, -1, 1, 1, 1]), gl.STATIC_DRAW);
 
-    const pos = gl.getAttribLocation(program, "position");
+    const pos = gl.getAttribLocation(program, 'position');
     gl.enableVertexAttribArray(pos);
     gl.vertexAttribPointer(pos, 2, gl.FLOAT, false, 0, 0);
 
     const locs = {
-      res: gl.getUniformLocation(program, "u_resolution"),
-      time: gl.getUniformLocation(program, "u_time"),
-      grain: gl.getUniformLocation(program, "u_grain"),
-      colors: gl.getUniformLocation(program, "u_colors"),
-      base: gl.getUniformLocation(program, "u_base"),
+      res: gl.getUniformLocation(program, 'u_resolution'),
+      time: gl.getUniformLocation(program, 'u_time'),
+      grain: gl.getUniformLocation(program, 'u_grain'),
+      vignette: gl.getUniformLocation(program, 'u_vignette'),
+      strength: gl.getUniformLocation(program, 'u_strength'),
+      legacy: gl.getUniformLocation(program, 'u_legacy'),
+      colors: gl.getUniformLocation(program, 'u_colors'),
+      base: gl.getUniformLocation(program, 'u_base'),
     };
 
     const resize = () => {
@@ -163,11 +158,17 @@ const Auralis = ({
     ro.observe(container);
 
     let raf: number;
-    const base = theme === "dark" ? [0.02, 0.01, 0.01] : [0.97, 0.97, 0.94];
+    const base = theme === 'dark' ? [0.02, 0.01, 0.01] : [0.98, 0.98, 1.0];
+    const vignette = theme === 'dark' ? 1.0 : 0.25;
+    const strength = theme === 'dark' ? 0.9 : 0.65;
+    const legacy = theme === 'dark' ? 1.0 : 0.0;
     const render = (t: number) => {
       gl.uniform2f(locs.res, canvas.width, canvas.height);
       gl.uniform1f(locs.time, t * 0.001 * speed);
       gl.uniform1f(locs.grain, grain);
+      gl.uniform1f(locs.vignette, vignette);
+      gl.uniform1f(locs.strength, strength);
+      gl.uniform1f(locs.legacy, legacy);
 
       const flat = new Float32Array(activeColors.slice(0, 3).flatMap(hexToRgb));
       gl.uniform3fv(locs.colors, flat);
@@ -186,19 +187,8 @@ const Auralis = ({
   }, [activeColors, speed, grain, theme]);
 
   return (
-    <div
-      ref={containerRef}
-      style={{ height }}
-      className={cn(
-        "relative w-full overflow-hidden",
-        theme === "dark" ? "bg-[#010103]" : "bg-[#f7f6f0]",
-        className,
-      )}
-    >
-      <canvas
-        ref={canvasRef}
-        className="pointer-events-none absolute inset-0 h-full w-full"
-      />
+    <div ref={containerRef} style={{ height }} className={cn('relative w-full overflow-hidden', theme === 'dark' ? 'bg-[#010103]' : 'bg-[#f7f6f0]', className)}>
+      <canvas ref={canvasRef} className="pointer-events-none absolute inset-0 h-full w-full" />
       <div className="relative z-10 flex h-full w-full flex-col items-center justify-center" />
     </div>
   );
