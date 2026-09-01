@@ -1,6 +1,12 @@
 @import "tailwindcss";
 
+@import "@fontsource-variable/geist";
+@import "@fontsource-variable/geist-mono";
+
 @theme inline {
+  --font-sans: "Geist Variable", ui-sans-serif, system-ui, sans-serif;
+  --font-mono: "Geist Mono Variable", ui-monospace, monospace;
+
   --color-background: hsl(var(--background));
   --color-foreground: hsl(var(--foreground));
   --color-card: hsl(var(--card));
@@ -20,42 +26,87 @@
   --color-border: hsl(var(--border));
   --color-input: hsl(var(--input));
   --color-ring: hsl(var(--ring));
+  --color-surface: hsl(var(--surface));
+  --color-surface-elevated: hsl(var(--surface-elevated));
+  --color-text-secondary: hsl(var(--text-secondary));
+  --color-accent-muted: hsl(var(--accent-muted));
+
   --radius-lg: var(--radius);
-  --radius-md: calc(var(--radius) - 2px);
-  --radius-sm: calc(var(--radius) - 4px);
+  --radius-md: calc(var(--radius) - 4px);
+  --radius-sm: calc(var(--radius) - 8px);
 }
 
 @layer base {
   :root {
-    --background: 0 0% 100%;
-    --foreground: 240 10% 3.9%;
+    --background: 60 33% 98%; /* warm off-white #fafaf9 */
+    --foreground: 24 10% 10%; /* #1c1917 */
 
-    --card: 0 0% 100%;
-    --card-foreground: 240 10% 3.9%;
+    --card: 60 33% 100%;
+    --card-foreground: 24 10% 10%;
 
-    --popover: 0 0% 100%;
-    --popover-foreground: 240 10% 3.9%;
+    --popover: 60 33% 100%;
+    --popover-foreground: 24 10% 10%;
 
-    --primary: 240 5.9% 10%;
-    --primary-foreground: 0 0% 98%;
+    --primary: 24 10% 10%; /* #1c1917 */
+    --primary-foreground: 60 33% 98%;
 
-    --secondary: 240 4.8% 95.9%;
-    --secondary-foreground: 240 5.9% 10%;
+    --secondary: 30 6% 95%; /* #f5f5f4 */
+    --secondary-foreground: 24 10% 10%;
 
-    --muted: 240 4.8% 95.9%;
-    --muted-foreground: 240 3.8% 46.1%;
+    --muted: 30 6% 95%;
+    --muted-foreground: 25 5% 45%; /* #57534e */
 
-    --accent: 240 4.8% 95.9%;
-    --accent-foreground: 240 5.9% 10%;
+    --accent: 221 83% 53%; /* blue #2563eb */
+    --accent-foreground: 0 0% 100%;
 
-    --destructive: 0 84.2% 60.2%;
+    --destructive: 0 84% 60%;
     --destructive-foreground: 0 0% 98%;
 
-    --border: 240 5.9% 90%;
-    --input: 240 5.9% 90%;
-    --ring: 240 10% 3.9%;
+    --border: 30 6% 90%; /* #e7e5e4 */
+    --input: 30 6% 90%;
+    --ring: 221 83% 53%;
 
-    --radius: 0.5rem;
+    --surface: 30 6% 95%; /* #f5f5f4 */
+    --surface-elevated: 60 33% 100%;
+    --text-secondary: 25 5% 45%;
+    --accent-muted: 214 95% 93%; /* #dbeafe */
+
+    --radius: 1rem;
+  }
+
+  .dark {
+    --background: 24 10% 4%; /* #0c0a09 */
+    --foreground: 60 33% 96%;
+
+    --card: 24 10% 8%;
+    --card-foreground: 60 33% 96%;
+
+    --popover: 24 10% 8%;
+    --popover-foreground: 60 33% 96%;
+
+    --primary: 60 33% 96%;
+    --primary-foreground: 24 10% 4%;
+
+    --secondary: 24 5% 12%;
+    --secondary-foreground: 60 33% 96%;
+
+    --muted: 24 5% 12%;
+    --muted-foreground: 30 5% 65%; /* #a8a29e */
+
+    --accent: 217 91% 60%; /* #3b82f6 */
+    --accent-foreground: 0 0% 100%;
+
+    --destructive: 0 72% 51%;
+    --destructive-foreground: 0 0% 98%;
+
+    --border: 30 6% 16%;
+    --input: 30 6% 16%;
+    --ring: 217 91% 60%;
+
+    --surface: 24 5% 8%;
+    --surface-elevated: 24 5% 11%;
+    --text-secondary: 30 5% 65%;
+    --accent-muted: 218 54% 25%;
   }
 }
 
@@ -66,5 +117,53 @@
 
   body {
     @apply bg-background text-foreground;
+    -webkit-font-smoothing: antialiased;
+    text-rendering: optimizeLegibility;
+  }
+
+  ::selection {
+    background: hsl(var(--accent-muted));
+    color: hsl(var(--foreground));
+  }
+
+  ::-webkit-scrollbar {
+    width: 10px;
+    height: 10px;
+  }
+
+  ::-webkit-scrollbar-track {
+    background: hsl(var(--background));
+  }
+
+  ::-webkit-scrollbar-thumb {
+    background: hsl(var(--border));
+    border-radius: 6px;
+  }
+}
+
+html {
+  scroll-behavior: smooth;
+}
+
+.no-scrollbar::-webkit-scrollbar {
+  display: none;
+}
+
+.no-scrollbar {
+  -ms-overflow-style: none;
+  scrollbar-width: none;
+}
+
+@media (prefers-reduced-motion: reduce) {
+  html {
+    scroll-behavior: auto;
+  }
+  *,
+  *::before,
+  *::after {
+    animation-duration: 0.01ms !important;
+    animation-iteration-count: 1 !important;
+    transition-duration: 0.01ms !important;
+    scroll-behavior: auto !important;
   }
 }

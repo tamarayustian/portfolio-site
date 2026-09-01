@@ -1,0 +1,7 @@
+export { Navigation } from './Navigation'
+export { Hero } from './Hero'
+export { About } from './About'
+export { Philosophy } from './Philosophy'
+export { Work } from './Work'
+export { Writing } from './Writing'
+export { Contact } from './Contact'
