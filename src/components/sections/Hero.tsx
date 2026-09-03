@@ -43,7 +43,7 @@ export function Hero() {
             </motion.p>
 
             <motion.div variants={item} className="flex flex-wrap items-center gap-4">
-              <a href="#work" className={cn('group inline-flex items-center gap-2 rounded-full px-6 py-3 text-sm font-medium transition-opacity hover:opacity-90 active:scale-[0.98]', dark ? 'bg-white text-zinc-900' : 'bg-zinc-900 text-white')}>
+              <a href="#projects" className={cn('group inline-flex items-center gap-2 rounded-full px-6 py-3 text-sm font-medium transition-opacity hover:opacity-90 active:scale-[0.98]', dark ? 'bg-white text-zinc-900' : 'bg-zinc-900 text-white')}>
                 View my work
                 <ArrowRight size={16} className="transition-transform group-hover:translate-x-0.5" />
               </a>

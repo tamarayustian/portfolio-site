@@ -1,38 +1,15 @@
 import { cn } from '@/lib/utils';
+import { projects, projectsHeading } from '@/content';
 import { ArrowUpRight } from 'lucide-react';
 import { Reveal } from './Reveal';
 
-const projects = [
-  {
-    title: 'ClearFlow',
-    description: 'A task manager that strips away the noise so teams can focus on the work that matters.',
-    tags: ['Product design', 'TypeScript', 'React'],
-    image: 'https://picsum.photos/seed/clearflow-app/1200/800',
-    large: true,
-  },
-  {
-    title: 'FieldNote',
-    description: 'A lightweight journaling app built for people who want their ideas captured, not organized.',
-    tags: ['Mobile', 'Swift', 'iOS'],
-    image: 'https://picsum.photos/seed/fieldnote-mobile/800/800',
-    large: false,
-  },
-  {
-    title: 'Lens & Letter',
-    description: 'An editorial site where photography and writing meet, telling stories in both forms.',
-    tags: ['React', 'Photography', 'Content'],
-    image: 'https://picsum.photos/seed/lensletter-editorial/800/800',
-    large: false,
-  },
-];
-
-export function Work() {
+export function Projects() {
   return (
-    <section id="work" className="py-24 md:py-32">
+    <section id="projects" className="py-24 md:py-32">
       <div className="mx-auto max-w-6xl px-4 md:px-8">
         <Reveal>
           <div className="flex flex-col gap-6 md:flex-row md:items-end md:justify-between">
-            <h2 className="text-3xl font-semibold leading-tight tracking-tight md:text-4xl">Selected work</h2>
+            <h2 className="text-3xl font-semibold leading-tight tracking-tight md:text-4xl">{projectsHeading}</h2>
             <a href="#contact" className="inline-flex items-center gap-1.5 text-sm font-medium text-accent underline-offset-4 hover:underline">
               Have a project in mind?
               <ArrowUpRight size={15} />

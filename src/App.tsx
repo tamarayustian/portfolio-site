@@ -3,7 +3,8 @@ import {
   Hero,
   About,
   Philosophy,
-  Work,
+  Experience,
+  Projects,
   Writing,
   Contact,
 } from '@/components/sections'
@@ -15,7 +16,8 @@ function App() {
       <Hero />
       <About />
       <Philosophy />
-      <Work />
+      <Experience />
+      <Projects />
       <Writing />
       <Contact />
     </main>
