@@ -31,11 +31,11 @@ export function Hero() {
         <div className="max-w-4xl">
           <motion.div variants={container} initial="hidden" animate="show" className="space-y-8">
             <motion.p variants={item} className={dark ? 'text-sm font-medium text-accent' : 'text-sm font-medium text-blue-600'}>
-              Software developer and storyteller
+              Full-stack developer. Part-time storyteller.
             </motion.p>
 
             <motion.h1 variants={item} className={cn('text-4xl font-semibold leading-[1.05] tracking-tighter md:text-5xl lg:text-6xl', dark ? 'text-white' : 'text-zinc-900')}>
-              I build products that feel simple, because clear always wins.
+              I make complex software feel simple.
             </motion.h1>
 
             <motion.p variants={item} className={cn('max-w-[65ch] text-base leading-relaxed md:text-lg', dark ? 'text-white/70' : 'text-zinc-600')}>

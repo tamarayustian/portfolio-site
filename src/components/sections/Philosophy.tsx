@@ -6,7 +6,7 @@ export function Philosophy() {
     <section id="philosophy" className="py-24 md:py-32">
       <div className="mx-auto max-w-6xl px-4 md:px-8">
         <Reveal>
-          <h2 className="max-w-[65ch] text-3xl font-semibold leading-tight tracking-tight md:text-4xl">A product is a story a user should never have to work to follow.</h2>
+          <h2 className="max-w-[65ch] text-3xl font-semibold leading-tight tracking-tight md:text-4xl">Good products don&apos;t ask you to figure them out.</h2>
         </Reveal>
 
         <div className="mt-12 grid grid-cols-1 gap-5 md:grid-cols-3">
