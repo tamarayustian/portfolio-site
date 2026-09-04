@@ -25,8 +25,8 @@ export function Hero() {
   };
 
   return (
-    <section id="top" className="relative flex min-h-dvh items-center pb-16 pt-24">
-      <Auralis height="100dvh" speed={0.2} grain={0.5} theme={dark ? 'dark' : 'light'} className="absolute inset-0" />
+    <section id="top" className="relative flex min-h-svh items-center pb-16 pt-24">
+      <Auralis height="100svh" speed={0.2} grain={0.5} theme={dark ? 'dark' : 'light'} className="absolute inset-0" />
       <div className="relative z-10 mx-auto w-full max-w-6xl px-4 md:px-8">
         <div className="max-w-4xl">
           <motion.div variants={container} initial="hidden" animate="show" className="space-y-8">
