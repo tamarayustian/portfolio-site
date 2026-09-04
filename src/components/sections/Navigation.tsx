@@ -40,7 +40,7 @@ export function Navigation() {
       <div className="mx-auto max-w-6xl">
         <nav className={cn('flex items-center justify-between rounded-full px-5 py-3 transition-colors duration-300', scrolled ? 'border border-border bg-card/80 shadow-sm backdrop-blur-md' : 'bg-transparent')}>
           <a href="#top" className="font-semibold tracking-tight">
-            tamarayustian
+            Tamara Yustian
           </a>
 
           <div className="hidden items-center gap-7 md:flex">
@@ -49,12 +49,7 @@ export function Navigation() {
                 {link.label}
               </a>
             ))}
-            <button
-              type="button"
-              aria-label={dark ? 'Switch to light mode' : 'Switch to dark mode'}
-              onClick={toggleTheme}
-              className="inline-flex items-center justify-center rounded-full border border-border p-2 text-muted-foreground transition-colors hover:bg-secondary hover:text-foreground"
-            >
+            <button type="button" aria-label={dark ? 'Switch to light mode' : 'Switch to dark mode'} onClick={toggleTheme} className="inline-flex items-center justify-center rounded-full border border-border p-2 text-muted-foreground transition-colors hover:bg-secondary hover:text-foreground">
               {dark ? <Sun size={18} /> : <Moon size={18} />}
             </button>
             <a href="#contact" className="rounded-full bg-accent px-4 py-1.5 text-sm font-medium text-accent-foreground transition-opacity hover:opacity-90">
@@ -63,12 +58,7 @@ export function Navigation() {
           </div>
 
           <div className="flex items-center gap-2 md:hidden">
-            <button
-              type="button"
-              aria-label={dark ? 'Switch to light mode' : 'Switch to dark mode'}
-              onClick={toggleTheme}
-              className="inline-flex items-center justify-center rounded-full border border-border p-2 text-muted-foreground transition-colors hover:bg-secondary hover:text-foreground"
-            >
+            <button type="button" aria-label={dark ? 'Switch to light mode' : 'Switch to dark mode'} onClick={toggleTheme} className="inline-flex items-center justify-center rounded-full border border-border p-2 text-muted-foreground transition-colors hover:bg-secondary hover:text-foreground">
               {dark ? <Sun size={20} /> : <Moon size={20} />}
             </button>
             <button type="button" aria-label="Toggle menu" aria-expanded={open} onClick={() => setOpen((v) => !v)} className="inline-flex items-center justify-center rounded-full p-2 text-foreground transition-colors hover:bg-secondary">
