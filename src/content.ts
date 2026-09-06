@@ -56,12 +56,6 @@ export function roleDurationMonths(role: ExperienceRole, now: Month): number {
   return toMonthIndex(end) - toMonthIndex(role.from) + 1;
 }
 
-export type WritingPiece = {
-  title: string;
-  genre: string;
-  excerpt: string;
-};
-
 export const projectsHeading = 'Selected projects';
 
 export const projects: Project[] = [
@@ -186,23 +180,6 @@ export const experienceRoles: ExperienceRole[] = [
 export const writing = {
   heading: 'Writing on the side',
   intro: 'When I am not building software, I write poems and short stories. A smaller corner of who I am, but one I keep close.',
-  pieces: [
-    {
-      title: 'The Space Between Keys',
-      genre: 'Poem',
-      excerpt: 'You can hear the whole story in the pause before a sentence finds its ending.',
-    },
-    {
-      title: 'Salt and Static',
-      genre: 'Short story',
-      excerpt: 'A radio host in a coastal town keeps playing the same request from a listener who stopped calling.',
-    },
-    {
-      title: 'First Light',
-      genre: 'Poem',
-      excerpt: 'Dawn, like good design, arrives on its own. No one has to ask it to come.',
-    },
-  ] satisfies WritingPiece[],
 };
 
 export const contact = {
