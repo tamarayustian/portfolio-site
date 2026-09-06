@@ -2,8 +2,10 @@ export type Project = {
   title: string;
   description: string;
   tags: string[];
-  image: string;
-  large: boolean;
+  image?: string;
+  url?: string;
+  codeUrl?: string;
+  status: 'live' | 'soon';
 };
 
 export type Month = { month: number; year: number };
@@ -60,25 +62,44 @@ export const projectsHeading = 'Selected projects';
 
 export const projects: Project[] = [
   {
-    title: 'ClearFlow',
-    description: 'A task manager that strips away the noise so teams can focus on the work that matters.',
-    tags: ['Product design', 'TypeScript', 'React'],
-    image: 'https://picsum.photos/seed/clearflow-app/1200/800',
-    large: true,
+    title: 'Arise Asia',
+    description: 'The main site for a young-adults movement across Asia. I build its event landing pages and keep the international editions consistent.',
+    tags: ['React', 'TailwindCSS', 'Vercel'],
+    image: '/projects/arise-asia.png',
+    url: 'https://www.ariseasia.org',
+    status: 'live',
   },
   {
-    title: 'FieldNote',
-    description: 'A lightweight journaling app built for people who want their ideas captured, not organized.',
-    tags: ['Mobile', 'Swift', 'iOS'],
-    image: 'https://picsum.photos/seed/fieldnote-mobile/800/800',
-    large: false,
+    title: 'Harvest Mission Community Church',
+    description: 'The Hong Kong church site I build and maintain as a volunteer: services, events, and community stories.',
+    tags: ['React', 'Vite'],
+    image: '/projects/hmcc-hk.png',
+    url: 'https://hk.hmccglobal.org',
+    status: 'live',
   },
   {
-    title: 'Lens & Letter',
-    description: 'An editorial site where photography and writing meet, telling stories in both forms.',
-    tags: ['React', 'Photography', 'Content'],
-    image: 'https://picsum.photos/seed/lensletter-editorial/800/800',
-    large: false,
+    title: 'CANON Life Leader Thanks',
+    description: 'A place for group members to send messages thanking their CANON LIFE leaders.',
+    tags: ['TypeScript', 'React', 'Vite'],
+    image: '/projects/canon-life.png',
+    url: 'https://canon-boom.vercel.app',
+    codeUrl: 'https://github.com/tamarayustian/canon-lg-leaders',
+    status: 'live',
+  },
+  {
+    title: 'Stewards',
+    description: 'Split expenses with friends without the awkward — log what you paid, then ping a friendly reminder when it\u2019s time to settle up.',
+    tags: [],
+    url: 'https://stewards-nine.vercel.app',
+    status: 'soon',
+  },
+  {
+    title: 'Ripple Out Worship',
+    description: 'A worship portal for Harvest Mission Community Church — new and in the press.',
+    tags: ['React', 'TypeScript', 'Express'],
+    url: 'https://rippleoutworship.net',
+    codeUrl: 'https://github.com/Harvest-Mission-Global/ripple-out-worship',
+    status: 'soon',
   },
 ];
 
