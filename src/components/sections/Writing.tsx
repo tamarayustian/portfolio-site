@@ -9,7 +9,18 @@ export function Writing() {
       <div className="mx-auto max-w-6xl px-4 md:px-8">
         <Reveal>
           <div className="flex flex-col gap-4">
-            <h2 className="text-3xl font-semibold leading-tight tracking-tight md:text-4xl">{writing.heading}</h2>
+            <div className="flex flex-col gap-4 md:flex-row md:items-end md:justify-between md:gap-6">
+              <h2 className="text-3xl font-semibold leading-tight tracking-tight md:text-4xl">{writing.heading}</h2>
+              <a
+                href="https://medium.com/@tamarayustian"
+                target="_blank"
+                rel="noopener noreferrer"
+                className="inline-flex items-center gap-1.5 text-sm font-medium text-accent underline-offset-4 hover:underline"
+              >
+                Read more on Medium
+                <ArrowUpRight size={15} />
+              </a>
+            </div>
             <p className="max-w-[65ch] text-base leading-relaxed text-muted-foreground">{writing.intro}</p>
           </div>
         </Reveal>
