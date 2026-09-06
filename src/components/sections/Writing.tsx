@@ -26,7 +26,7 @@ export function Writing() {
         </Reveal>
 
         {mediumPosts.length > 0 && (
-          <div className="no-scrollbar -mx-4 mt-10 overflow-x-auto px-4 pb-4 md:-mx-8 md:px-8">
+          <div className="no-scrollbar -mx-4 mt-10 overflow-x-auto overflow-y-clip px-4 pb-4 md:-mx-8 md:px-8">
             <div className="flex w-max gap-5">
               {mediumPosts.map((post, i) => (
                 <Reveal key={post.url} delay={i * 0.06}>
