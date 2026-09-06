@@ -159,7 +159,7 @@ export const experienceRoles: ExperienceRole[] = [
     company: 'Harvest Mission Community Church',
     roleType: 'Volunteer',
     bullets: ['Led cross-functional project teams of up to 8 through the full development cycle, from gathering requirements to deployment, using Scrum and DevOps practices.', 'Brainstormed and shipped features that improved internal systems and removed pain points.', 'Mentored junior developers through consistent PR reviews and feedback to build critical thinking.'],
-    techStack: ['React', 'Sails.js', 'DigitalOcean'],
+    techStack: ['React', 'Sails.js', 'DigitalOcean', 'Flutter'],
   },
   {
     lane: 'volunteer',
@@ -169,7 +169,7 @@ export const experienceRoles: ExperienceRole[] = [
     company: 'Harvest Mission Community Church',
     roleType: 'Volunteer',
     bullets: ['Produce and edit film and media for the church, tying the same storytelling instinct to events and services.'],
-    techStack: ['Film', 'Video Editing'],
+    techStack: ['Photography', 'Adobe Premiere Pro'],
   },
   {
     lane: 'volunteer',
@@ -179,7 +179,7 @@ export const experienceRoles: ExperienceRole[] = [
     company: 'Harvest Mission Community Church',
     roleType: 'Volunteer',
     bullets: ['Shot and edited video, recorded audio, and photographed events to document and promote them.', 'Spearheaded a social media initiative for an on-campus student organization to raise its visibility.'],
-    techStack: ['Photography', 'Video Editing', 'Multimedia'],
+    techStack: ['Photography', 'Adobe Premiere Pro', 'Social Media'],
   },
 ];
 
@@ -206,10 +206,10 @@ export const writing = {
 };
 
 export const contact = {
-  heading: "Let's build something clear.",
-  description: 'If you have a product that deserves to be simpler, or a problem that needs a storyteller who codes, I would love to talk.',
+  heading: "Let's build something worth using.",
+  description: 'A product that could be simpler, or a problem that needs someone who codes and writes. I would love to talk.',
   email: 'tamarayustian@gmail.com',
-  footer: 'Built with care. Code, photos, and words by me.',
+  footer: 'A little bit of everything, by me.',
   githubUrl: 'https://github.com/tamarayustian',
   linkedinUrl: 'https://www.linkedin.com/in/tamara-yustian',
 };
