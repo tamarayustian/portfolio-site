@@ -1,6 +1,6 @@
 import { projects, projectsHeading } from '@/content';
 import { cn } from '@/lib/utils';
-import { ArrowUpRight } from 'lucide-react';
+import { ArrowUpRight, RadioIcon } from 'lucide-react';
 import { AnimatePresence, motion, useReducedMotion } from 'motion/react';
 import { useState } from 'react';
 import { Reveal } from './Reveal';
@@ -26,7 +26,7 @@ function InThePress({ number }: { number: string }) {
     <div className="m-6 flex aspect-16/10 flex-col items-center justify-center gap-3 overflow-hidden rounded-2xl border border-dashed border-foreground/25 bg-secondary/40 md:m-8">
       <span className="font-mono text-[11px] uppercase tracking-[0.25em] text-foreground/60">In the press</span>
       <span className="h-1.5 w-1.5 rounded-full bg-foreground/35" aria-hidden="true" />
-      <span className="font-mono text-[10px] tracking-[0.2em] text-foreground/40">sheet № {number} — planned</span>
+      <span className="font-mono text-[10px] tracking-[0.2em] text-foreground/40">sheet № {number} — coming soon</span>
     </div>
   );
 }
@@ -95,30 +95,36 @@ export function Projects() {
                           active.title
                         )}
                       </h3>
-                      {active.status === 'live' && active.url && <ArrowUpRight size={20} className="mt-1 shrink-0 text-muted-foreground" aria-hidden="true" />}
+                      {active.status === 'live' && active.url && <RadioIcon size={20} className="mt-1 shrink-0 text-muted-foreground" aria-hidden="true" />}
                     </div>
                     <p className="mt-3 max-w-[65ch] text-sm leading-relaxed text-muted-foreground">{active.description}</p>
-                    {(active.tags.length > 0 || active.url || active.codeUrl) && (
-                      <div className="mt-5 flex flex-wrap items-center gap-x-2 gap-y-2.5">
-                        {active.tags.map((tag) => (
-                          <span key={tag} className="rounded-full bg-secondary px-3 py-1 text-xs font-medium text-muted-foreground">
-                            {tag}
-                          </span>
-                        ))}
-                        {active.url && (
-                          <PlateLink href={active.url}>
-                            {active.status === 'soon' ? 'Preview' : 'Visit site'}
-                            <ArrowUpRight size={13} />
-                          </PlateLink>
-                        )}
-                        {active.codeUrl && (
-                          <PlateLink href={active.codeUrl}>
-                            <GitHubIcon size={14} />
-                            Source code
-                          </PlateLink>
-                        )}
-                      </div>
-                    )}
+{(active.tags.length > 0 || active.url || active.codeUrl) && (
+  <div className="mt-5 flex flex-wrap items-center justify-between gap-x-2 gap-y-2.5">
+    <div className="flex flex-wrap items-center gap-2">
+      {active.tags.map((tag) => (
+        <span key={tag} className="rounded-full bg-secondary px-3 py-1 text-xs font-medium text-muted-foreground">
+          {tag}
+        </span>
+      ))}
+    </div>
+    {(active.url || active.codeUrl) && (
+      <div className="flex w-full flex-wrap items-center gap-x-3.5 gap-y-1 md:w-auto md:ml-auto md:justify-end">
+        {active.url && (
+          <PlateLink href={active.url}>
+            {active.status === 'soon' ? 'Preview' : 'Visit site'}
+            <ArrowUpRight size={13} />
+          </PlateLink>
+        )}
+        {active.codeUrl && (
+          <PlateLink href={active.codeUrl}>
+            <GitHubIcon size={14} />
+            Source code
+          </PlateLink>
+        )}
+      </div>
+    )}
+  </div>
+)}
                   </div>
                 </motion.div>
               </AnimatePresence>
