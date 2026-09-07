@@ -63,7 +63,7 @@ export const projectsHeading = 'Selected projects';
 export const projects: Project[] = [
   {
     title: 'Arise Asia',
-    description: 'The main site for a young-adults movement across Asia. I build its event landing pages and keep the international editions consistent.',
+    description: 'The main site for a young-adults movement across Asia. I build its event conferences landing pages and keep the international editions consistent.',
     tags: ['React', 'TailwindCSS', 'Vercel'],
     image: '/projects/arise-asia.png',
     url: 'https://www.ariseasia.org',
@@ -71,7 +71,7 @@ export const projects: Project[] = [
   },
   {
     title: 'Harvest Mission Community Church of Hong Kong',
-    description: 'The Hong Kong church site I build and maintain as a volunteer: services, events, and community stories.',
+    description: 'The Hong Kong church site I build and maintain as a volunteer: services, events, dashboard, and community stories.',
     tags: ['React', 'Vite'],
     image: '/projects/hmcc-hk.png',
     url: 'https://hk.hmccglobal.org',
@@ -79,12 +79,21 @@ export const projects: Project[] = [
     status: 'live',
   },
   {
-    title: 'CANON Life Leader Thanks',
-    description: 'A place for group members to send messages thanking their CANON LIFE leaders.',
-    tags: ['TypeScript', 'React', 'Vite'],
+    title: 'Thank you, CANON LIFE Group Leaders',
+    description: 'A place for small group members to send their leaders thank-you messages, dressed as their favorites — Pokemon and IU.',
+    tags: ['TypeScript', 'React', 'Vite', 'Vercel'],
     image: '/projects/canon-life.png',
     url: 'https://canon-boom.vercel.app',
     codeUrl: 'https://github.com/tamarayustian/canon-lg-leaders',
+    status: 'live',
+  },
+  {
+    title: 'Thank you, Git LIFE Group Leader',
+    description: 'Thank-you notes for the Git small group leader, styled as commit messages, with votes and a covenant.',
+    tags: ['Next.js', 'React', 'TypeScript', 'Vercel'],
+    image: '/projects/git-lg-leader.png',
+    url: 'https://git-randall.vercel.app',
+    codeUrl: 'https://github.com/tamarayustian/git-lg-leader',
     status: 'live',
   },
   {
@@ -96,7 +105,7 @@ export const projects: Project[] = [
   },
   {
     title: 'Ripple Out Worship',
-    description: 'A worship portal for Harvest Mission Community Church — new and in the press.',
+    description: "Built by Harvest Mission Community Church to get lyrics and chords where they're needed, and keep the logistics out of the service.",
     tags: ['React', 'TypeScript', 'Express'],
     url: 'https://rippleoutworship.net',
     codeUrl: 'https://github.com/Harvest-Mission-Global/ripple-out-worship',
