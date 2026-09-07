@@ -83,10 +83,10 @@ export function Projects() {
             <div className="relative overflow-hidden rounded-3xl border border-border bg-card">
               <AnimatePresence mode="wait" initial={false}>
                 <motion.div key={active.title} {...plateMotion} initial={{ opacity: 0, y: 12 }} animate={{ opacity: 1, y: 0 }} exit={{ opacity: 0, y: -8 }} transition={{ duration: 0.35, ease: [0.16, 1, 0.3, 1] }}>
-                  {active.image ? <img src={active.image} alt={`${active.title} project`} className="aspect-[16/10] w-full object-cover" loading="lazy" /> : <InThePress number={String(activeIndex + 1).padStart(2, '0')} />}
+                  {active.image ? <img src={active.image} alt={`${active.title} project`} className="aspect-16/10 w-full object-cover" loading="lazy" /> : <InThePress number={String(activeIndex + 1).padStart(2, '0')} />}
                   <div className="flex flex-col p-6 md:p-8">
                     <div className="flex items-start justify-between gap-4">
-                      <h3 className="text-2xl font-semibold tracking-tight">
+                      <h3 className="text-xl md:text-2xl font-semibold tracking-tight">
                         {active.status === 'live' && active.url ? (
                           <a href={active.url} target="_blank" rel="noopener noreferrer" className="transition-colors hover:text-accent">
                             {active.title}
