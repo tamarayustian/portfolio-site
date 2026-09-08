@@ -22,8 +22,8 @@ export function Philosophy() {
       <div className="mx-auto max-w-6xl px-4 md:px-8">
         <div className="grid grid-cols-1 gap-5 md:grid-cols-12">
           <Reveal className="md:col-span-5">
-            <div className="flex h-full flex-col justify-between rounded-3xl border border-border bg-card p-8 md:p-10">
-              <Heart className="text-accent" size={28} strokeWidth={1.75} />
+            <div className="group flex h-full flex-col justify-between rounded-3xl border border-border bg-card p-8 md:p-10">
+              <Heart className="fill-transparent text-accent transition-colors duration-300 group-hover:fill-accent" size={28} strokeWidth={1.75} />
               <div className="mt-16">
                 <h2 className="text-3xl font-semibold leading-tight tracking-tight md:text-4xl">
                   Good products don&apos;t ask you to figure them out.
