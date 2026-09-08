@@ -2,8 +2,8 @@ import { Reveal } from './Reveal';
 
 const stats = [
   { label: 'Years building software', value: '6' },
-  { label: 'Photos & films made', value: '300+' },
-  { label: 'Poems & stories written', value: '10+' },
+  { label: 'Production sites live', value: '4' },
+  { label: 'Years on GitHub', value: '9' },
 ];
 
 export function About() {

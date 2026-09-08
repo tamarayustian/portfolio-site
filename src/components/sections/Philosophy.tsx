@@ -7,7 +7,7 @@ const notes = [
     body: "Every feature should make someone's life a little easier. If a workflow takes three extra taps to get right, I treat that as a bug worth fixing.",
   },
   {
-    title: 'Clear workflows solve everything',
+    title: 'Clear workflows are the feature',
     body: 'A cluttered interface hides the story. I cut away what is not needed until the path from start to done is obvious.',
   },
   {
