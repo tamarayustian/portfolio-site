@@ -24,10 +24,6 @@ export type ExperienceRole = {
 
 const MONTH_NAMES = ['Jan', 'Feb', 'Mar', 'Apr', 'May', 'Jun', 'Jul', 'Aug', 'Sep', 'Oct', 'Nov', 'Dec'];
 
-function toMonthIndex(d: Month): number {
-  return d.year * 12 + (d.month - 1);
-}
-
 function formatMonth(d: Month): string {
   return `${MONTH_NAMES[d.month - 1]} ${d.year}`;
 }
@@ -36,26 +32,6 @@ export function formatRoleDate(role: ExperienceRole): string {
   const from = formatMonth(role.from);
   const to = role.to ? formatMonth(role.to) : 'Present';
   return `${from} — ${to}`;
-}
-
-export const timelineStart: Month = { month: 8, year: 2018 };
-
-export function currentMonth(): Month {
-  const now = new Date();
-  return { month: now.getMonth() + 1, year: now.getFullYear() };
-}
-
-export function monthOffset(start: Month, d: Month): number {
-  return toMonthIndex(d) - toMonthIndex(start);
-}
-
-export function roleStartOffset(role: ExperienceRole): number {
-  return monthOffset(timelineStart, role.from);
-}
-
-export function roleDurationMonths(role: ExperienceRole, now: Month): number {
-  const end = role.to ?? now;
-  return toMonthIndex(end) - toMonthIndex(role.from) + 1;
 }
 
 export const projectsHeading = 'Selected projects';
