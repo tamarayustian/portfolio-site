@@ -1,13 +1,5 @@
-import {
-  Navigation,
-  Hero,
-  About,
-  Philosophy,
-  Experience,
-  Projects,
-  Writing,
-  Contact,
-} from '@/components/sections'
+import { About, Contact, Experience, Hero, Navigation, Philosophy, Projects, Writing } from '@/components/sections';
+import { Analytics } from '@vercel/analytics/react';
 
 function App() {
   return (
@@ -20,8 +12,9 @@ function App() {
       <Projects />
       <Writing />
       <Contact />
+      <Analytics />
     </main>
-  )
+  );
 }
 
-export default App
+export default App;
